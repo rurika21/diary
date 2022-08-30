@@ -1,9 +1,8 @@
 <?php
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use Illuminate\Support\Facades\Route;
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'TargetController@index');
+Route::get('/posts/create', 'TargetController@create');
+Route::get('/posts/{post}', 'TargetController@show');
+Route::post('/posts', 'TargetController@store');
