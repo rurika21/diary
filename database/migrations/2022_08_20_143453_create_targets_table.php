@@ -11,13 +11,10 @@ class CreateTargetsTable extends Migration
     {
         Schema::create('targets', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 50);
-            $table->string('body', 200);
             $table->timestamps();
             $table->softDeletes();
-            $table->string('content', 100)->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('content', 100);
+            $table->integer('user_id')->unsigned();
         });
     }
 
