@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Target;
-use App\Http\Requests\TargetRequest; 
+use App\Http\Requests\TargetRequest;
+
 
 class TargetController extends Controller
 {
@@ -24,8 +26,27 @@ class TargetController extends Controller
 
     public function store(Target $post, TargetRequest $request) 
     {
-        $input = $request['post'];
+        $input = $request['target'];
+        $input['user_id']=Auth::id();
         $post->fill($input)->save();
         return redirect('/posts/' . $post->id);
+    }
+    
+    public function edit(Target $post)
+    {
+        return view('posts/edit')->with(['post' => $post]);
+    }
+    
+    public function update(TargetRequest $request, Target $post)
+    {
+        $input_post = $request['target'];
+        $post->fill($input_post)->save();
+
+        return redirect('/posts/' . $post->id);
+    }
+    public function delete(Target $post)
+    {
+        $post->delete();
+        return redirect('/');
     }
 }
